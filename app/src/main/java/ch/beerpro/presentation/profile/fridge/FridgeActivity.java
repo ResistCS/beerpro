@@ -14,7 +14,12 @@ import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -89,7 +94,57 @@ public class FridgeActivity extends AppCompatActivity implements OnMyFridgeInter
     }
 
     @Override
-    public void onFridgeClickedListener(Beer beer) {
-        model.toggleItemInWishlist(beer.getId());
+    public void onIncreaseClickedListener(Beer beer, Count count){
+        TextView view = (TextView) findViewById(R.id.currentAmount);
+        int i = Integer.parseInt(view.getText().toString()) + 1;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String coundId = Count.generateId(count.getUserId(), count.getBeerId());
+        DocumentReference wishEntryQuery = db.collection(Count.COLLECTION).document(coundId);
+        wishEntryQuery.get().continueWithTask(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                wishEntryQuery.update("amount", i);
+                view.setText(i);
+                return null;
+            } else {
+                throw task.getException();
+            }
+        });
+    }
+
+    @Override
+    public void onDecreaseClickedListener(Beer beer, Count count){
+        TextView view = (TextView) findViewById(R.id.currentAmount);
+        int i = Integer.parseInt(view.getText().toString()) - 1;
+        if(i < 0){
+            i = 0;
+        }
+        int x = i;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String coundId = Count.generateId(count.getUserId(), count.getBeerId());
+        DocumentReference wishEntryQuery = db.collection(Count.COLLECTION).document(coundId);
+        wishEntryQuery.get().continueWithTask(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                wishEntryQuery.update("amount", x);
+                view.setText(x);
+                return null;
+            } else {
+                throw task.getException();
+            }
+        });
+    }
+
+    @Override
+    public void onRemoveFromFridgeClickedListener(Beer beer, Count count){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String coundId = Count.generateId(count.getUserId(), count.getBeerId());
+        DocumentReference wishEntryQuery = db.collection(Count.COLLECTION).document(coundId);
+        wishEntryQuery.get().continueWithTask(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                wishEntryQuery.delete();
+                return null;
+            } else {
+                throw task.getException();
+            }
+        });
     }
 }

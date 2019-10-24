@@ -69,6 +69,6 @@ public class DetailsViewModel extends ViewModel implements CurrentUser {
     }
 
     public Task<Void> toggleItemInFridge(String itemId){
-        return fridgeRepository.toggleUserCountlistItem(getCurrentUser().getUid(), itemId);
+        return fridgeRepository.addToFridge(getCurrentUser().getUid(), itemId);
     }
 }

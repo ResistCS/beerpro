@@ -132,9 +132,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        System.out.println("*********************************************\n\nSTART\n\n");
                         model.toggleItemInFridge(model.getBeer().getValue().getId());
-                        System.out.println("*********************************************\n\nEND\n\n");
 
                     }
                 }
@@ -167,7 +165,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
     @OnClick(R.id.wishlist)
     public void onWishClickedListener(View view) {
-        model.toggleItemInFridge(model.getBeer().getValue().getId());
+        model.toggleItemInWishlist(model.getBeer().getValue().getId());
         /*
          * We won't get an update from firestore when the wish is removed, so we need to reset the UI state ourselves.
          * */

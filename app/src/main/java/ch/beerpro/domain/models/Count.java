@@ -67,6 +67,10 @@ public class Count implements Entity {
         this.addedAt = addedAt;
     }
 
+    public Integer getAmount() {
+        return amount;
+    }
+
     public static String generateId(String userId, String beerId) {
         return String.format("%s_%s", userId, beerId);
     }

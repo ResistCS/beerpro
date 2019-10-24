@@ -10,49 +10,53 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
+
 import androidx.recyclerview.widget.DiffUtil;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.GlideApp;
 import ch.beerpro.R;
+import ch.beerpro.data.repositories.FridgeRepository;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Count;
-import ch.beerpro.domain.models.Wish;
-import ch.beerpro.presentation.profile.mywishlist.OnWishlistItemInteractionListener;
-import ch.beerpro.presentation.profile.mywishlist.WishlistRecyclerViewAdapter;
 import ch.beerpro.presentation.utils.EntityPairDiffItemCallback;
 
-public class FridgeRecyclerViewAdapter extends ListAdapter<Pair<Count, Beer>, FridgeRecyclerViewAdapter.ViewHolder>{
-    private static final String TAG="FridgeRecyclerViewAda";
+public class FridgeRecyclerViewAdapter extends ListAdapter<Pair<Count, Beer>, FridgeRecyclerViewAdapter.ViewHolder> {
+    private static final String TAG = "FridgeRecyclerViewAda";
 
-    private static final DiffUtil.ItemCallback<Pair<Count, Beer>>DIFF_CALLBACK=new EntityPairDiffItemCallback<>();
+    private static final DiffUtil.ItemCallback<Pair<Count, Beer>> DIFF_CALLBACK = new EntityPairDiffItemCallback<>();
 
     private final OnMyFridgeInteractionListener listener;
 
-    public FridgeRecyclerViewAdapter(OnMyFridgeInteractionListener listener){
-            super(DIFF_CALLBACK);
-            this.listener=listener;
+    public FridgeRecyclerViewAdapter(OnMyFridgeInteractionListener listener) {
+        super(DIFF_CALLBACK);
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-            LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
-            View view=layoutInflater.inflate(R.layout.activity_fridge_listentry,parent,false);
-            return new ViewHolder(view);
-            }
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(R.layout.activity_fridge_listentry, parent, false);
+        return new ViewHolder(view);
+    }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder,int position){
-            Pair<Count, Beer> item=getItem(position);
-            holder.bind(item.first,item.second,listener);
-            }
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        Pair<Count, Beer> item = getItem(position);
+        holder.bind(item.first, item.second, listener);
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -74,10 +78,16 @@ public class FridgeRecyclerViewAdapter extends ListAdapter<Pair<Count, Beer>, Fr
         @BindView(R.id.numRatings)
         TextView numRatings;
 
-        @BindView(R.id.addedAt)
-        TextView addedAt;
+        @BindView(R.id.increaseAmount)
+        Button increase;
 
-        @BindView(R.id.removeFromWishlist)
+        @BindView(R.id.currentAmount)
+        TextView currentAmount;
+
+        @BindView(R.id.decreaseAmount)
+        Button decrease;
+
+        @BindView(R.id.removeFromFridge)
         Button remove;
 
         ViewHolder(View view) {
@@ -85,7 +95,9 @@ public class FridgeRecyclerViewAdapter extends ListAdapter<Pair<Count, Beer>, Fr
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(Count wish, Beer item, OnMyFridgeInteractionListener listener) {
+        void bind(Count count, Beer item, OnMyFridgeInteractionListener listener) {
+            String s = String.valueOf(count.getAmount());
+            FridgeRepository fridgeRepository = new FridgeRepository();
             name.setText(item.getName());
             manufacturer.setText(item.getManufacturer());
             category.setText(item.getCategory());
@@ -96,11 +108,10 @@ public class FridgeRecyclerViewAdapter extends ListAdapter<Pair<Count, Beer>, Fr
             ratingBar.setRating(item.getAvgRating());
             numRatings.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getNumRatings()));
             itemView.setOnClickListener(v -> listener.onMoreClickedListener(photo, item));
-
-            String formattedDate =
-                    DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(wish.getAddedAt());
-            addedAt.setText(formattedDate);
-            remove.setOnClickListener(v -> listener.onFridgeClickedListener(item));
+            currentAmount.setText(s);
+            increase.setOnClickListener(v -> listener.onIncreaseClickedListener(item, count));
+            decrease.setOnClickListener(v -> listener.onDecreaseClickedListener(item, count));
+            remove.setOnClickListener(v -> listener.onRemoveFromFridgeClickedListener(item, count));
         }
 
     }

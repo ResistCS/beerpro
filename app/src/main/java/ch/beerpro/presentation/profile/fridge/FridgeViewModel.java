@@ -17,8 +17,6 @@ import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Count;
 
 public class FridgeViewModel extends ViewModel implements CurrentUser {
-    private static final String TAG = "WishlistViewModel";
-
     private final MutableLiveData<String> currentUserId = new MutableLiveData<>();
     private final BeersRepository beersRepository;
     private final FridgeRepository fridgeRepository;
@@ -33,7 +31,5 @@ public class FridgeViewModel extends ViewModel implements CurrentUser {
         return fridgeRepository.getMyCountlistWithBeers(currentUserId, beersRepository.getAllBeers());
     }
 
-    public Task<Void> toggleItemInWishlist(String itemId) {
-        return fridgeRepository.toggleUserCountlistItem(getCurrentUser().getUid(), itemId);
-    }
+
 }

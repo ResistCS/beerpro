@@ -41,27 +41,30 @@ public class FridgeRepository {
         return new FirestoreQueryLiveData<>(document, Count.class);
     }
 
-    public Task<Void> toggleUserCountlistItem(String userId, String itemId) {
+    public Task<Void> addToFridge(String userId, String itemId) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         String coundId = Count.generateId(userId, itemId);
-
         DocumentReference wishEntryQuery = db.collection(Count.COLLECTION).document(coundId);
 
         return wishEntryQuery.get().continueWithTask(task -> {
             if (task.isSuccessful() && task.getResult().exists()) {
-                return wishEntryQuery.delete();
+                //return wishEntryQuery.delete();
+                return null;
             } else if (task.isSuccessful()) {
-                return wishEntryQuery.set(new Count(userId, itemId, new Date(), 1));
+                return wishEntryQuery.set(new Count(userId, itemId, new Date()));
             } else {
                 throw task.getException();
             }
         });
     }
 
-    public LiveData<List<Pair<Count, Beer>>> getMyCountlistWithBeers(LiveData<String> currentUserId,
-                                                                   LiveData<List<Beer>> allBeers) {
+
+    public String getCurrentAmount(){
+        return "";
+    }
+
+    public LiveData<List<Pair<Count, Beer>>> getMyCountlistWithBeers(LiveData<String> currentUserId, LiveData<List<Beer>> allBeers) {
         return map(combineLatest(getMyCountlist(currentUserId), map(allBeers, Entity::entitiesById)), input -> {
             List<Count> wishes = input.first;
             HashMap<String, Beer> beersById = input.second;
