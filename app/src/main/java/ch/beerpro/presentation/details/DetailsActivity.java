@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -126,6 +127,19 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(view);
         dialog.show();
+        Button fridge = view.findViewById(R.id.addToFridge);
+        fridge.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        System.out.println("*********************************************\n\nSTART\n\n");
+                        model.toggleItemInFridge(model.getBeer().getValue().getId());
+                        System.out.println("*********************************************\n\nEND\n\n");
+
+                    }
+                }
+        );
+
     }
 
     private void updateBeer(Beer item) {
@@ -153,7 +167,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
     @OnClick(R.id.wishlist)
     public void onWishClickedListener(View view) {
-        model.toggleItemInWishlist(model.getBeer().getValue().getId());
+        model.toggleItemInFridge(model.getBeer().getValue().getId());
         /*
          * We won't get an update from firestore when the wish is removed, so we need to reset the UI state ourselves.
          * */
