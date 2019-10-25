@@ -3,6 +3,7 @@ package ch.beerpro.presentation.details;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +80,9 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
+    @BindView(R.id.shareBeer)
+    Button share;
+
     private RatingsRecyclerViewAdapter adapter;
 
     private DetailsViewModel model;
@@ -111,6 +116,20 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
         recyclerView.setAdapter(adapter);
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
+        // ATTENTION: This was auto-generated to handle app links.
+        handleIntent(getIntent());
+    }
+
+    private void handleIntent(Intent intent){
+        String appLinkAction = intent.getAction();
+        Uri appLinkData = intent.getData();
+        if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
+            String beerId = appLinkData.getLastPathSegment();
+            Uri appData = Uri.parse("content://ch.beerpro/beer/").buildUpon()
+                    .appendPath(beerId).build();
+            model.setBeerId(beerId);
+        }
+
     }
 
     private void addNewRating(RatingBar ratingBar, float v, boolean b) {
@@ -195,5 +214,16 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @OnClick(R.id.shareBeer)
+    public void onShareBeerClickedListener(View view){
+        String beerId = model.getBeer().getValue().getId();
+        String link = "http://beerpro.ch/beer/" + beerId;
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
+        intent.putExtra(Intent.EXTRA_TEXT, link);
+        startActivity(Intent.createChooser(intent, "Share Beer"));
     }
 }

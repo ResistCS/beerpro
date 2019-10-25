@@ -8,6 +8,7 @@
     tools:context=".presentation.details.DetailsActivity">
 
 
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
@@ -240,7 +241,7 @@
                                 android:background="#ffeeeeee" />
 
                             <Button
-                                android:id="@+id/button2"
+                                android:id="@+id/shareBeer"
                                 style="?android:attr/borderlessButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
