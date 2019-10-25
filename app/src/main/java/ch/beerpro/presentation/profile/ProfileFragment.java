@@ -127,7 +127,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateMyFridgeCount(List<Count> counts){
-        myFridgeCount.setText(String.valueOf(counts.size()));
+        int i = 0;
+        for (Count count: counts){
+            i += count.getAmount();
+        }
+        myFridgeCount.setText(String.valueOf(i));
     }
 
 }

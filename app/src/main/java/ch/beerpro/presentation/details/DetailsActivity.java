@@ -132,7 +132,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        model.toggleItemInFridge(model.getBeer().getValue().getId());
+                        model.addItemToFridge(model.getBeer().getValue().getId());
 
                     }
                 }
