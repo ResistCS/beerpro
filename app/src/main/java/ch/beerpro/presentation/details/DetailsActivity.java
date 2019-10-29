@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,10 +119,10 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         handleIntent(getIntent());
     }
 
-    private void handleIntent(Intent intent){
+    private void handleIntent(Intent intent) {
         String appLinkAction = intent.getAction();
         Uri appLinkData = intent.getData();
-        if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
+        if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null) {
             String beerId = appLinkData.getLastPathSegment();
             Uri appData = Uri.parse("content://ch.beerpro/beer/").buildUpon()
                     .appendPath(beerId).build();
@@ -148,9 +147,9 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         dialog.show();
         Button fridge = view.findViewById(R.id.addToFridge);
         fridge.setOnClickListener(
-                new View.OnClickListener(){
+                new View.OnClickListener() {
                     @Override
-                    public void onClick(View v){
+                    public void onClick(View v) {
                         model.addItemToFridge(model.getBeer().getValue().getId());
 
                     }
@@ -217,7 +216,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     }
 
     @OnClick(R.id.shareBeer)
-    public void onShareBeerClickedListener(View view){
+    public void onShareBeerClickedListener(View view) {
         String beerId = model.getBeer().getValue().getId();
         String link = "http://beerpro.ch/beer/" + beerId;
         Intent intent = new Intent(Intent.ACTION_SEND);

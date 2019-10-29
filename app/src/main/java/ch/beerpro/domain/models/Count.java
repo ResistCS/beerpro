@@ -19,48 +19,53 @@ public class Count implements Entity {
     private Date addedAt;
     private Integer amount;
 
-    public Count(){}
+    public Count() {
+    }
 
-    public Count(String userId, String beerId, Date addedAt){
+    public Count(String userId, String beerId, Date addedAt) {
         this.userId = userId;
         this.beerId = beerId;
         this.addedAt = addedAt;
         this.amount = 1;
     }
 
-    public Count(String userId, String beerId, Date addedAt, Integer amount){
+    public Count(String userId, String beerId, Date addedAt, Integer amount) {
         this.userId = userId;
         this.beerId = beerId;
         this.addedAt = addedAt;
         this.amount = amount;
     }
 
+    public static String generateId(String userId, String beerId) {
+        return String.format("%s_%s", userId, beerId);
+    }
+
     public String getId() {
         return this.id;
-    }
-
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public String getBeerId() {
-        return this.beerId;
-    }
-
-    public Date getAddedAt() {
-        return this.addedAt;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
+    public String getUserId() {
+        return this.userId;
+    }
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
+    public String getBeerId() {
+        return this.beerId;
+    }
+
     public void setBeerId(String beerId) {
         this.beerId = beerId;
+    }
+
+    public Date getAddedAt() {
+        return this.addedAt;
     }
 
     public void setAddedAt(Date addedAt) {
@@ -69,9 +74,5 @@ public class Count implements Entity {
 
     public Integer getAmount() {
         return amount;
-    }
-
-    public static String generateId(String userId, String beerId) {
-        return String.format("%s_%s", userId, beerId);
     }
 }

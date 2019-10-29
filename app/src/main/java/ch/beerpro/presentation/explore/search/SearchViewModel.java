@@ -45,10 +45,6 @@ public class SearchViewModel extends ViewModel implements CurrentUser {
         currentUserId.setValue(getCurrentUser().getUid());
     }
 
-    public LiveData<List<Beer>> getAllBeers() {
-        return beersRepository.getAllBeers();
-    }
-
     private static List<Beer> filter(Pair<String, List<Beer>> input) {
         String searchTerm1 = input.first;
         List<Beer> allBeers = input.second;
@@ -65,6 +61,10 @@ public class SearchViewModel extends ViewModel implements CurrentUser {
             }
         }
         return filtered;
+    }
+
+    public LiveData<List<Beer>> getAllBeers() {
+        return beersRepository.getAllBeers();
     }
 
     public LiveData<List<Search>> getMyLatestSearches() {

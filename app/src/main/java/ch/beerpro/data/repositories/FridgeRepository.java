@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import ch.beerpro.domain.models.Beer;
-import ch.beerpro.domain.models.Entity;
 import ch.beerpro.domain.models.Count;
+import ch.beerpro.domain.models.Entity;
 import ch.beerpro.domain.utils.FirestoreQueryLiveData;
 import ch.beerpro.domain.utils.FirestoreQueryLiveDataArray;
 

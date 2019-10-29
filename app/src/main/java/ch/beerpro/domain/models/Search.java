@@ -32,28 +32,28 @@ public class Search implements Entity {
         return this.id;
     }
 
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public String getTerm() {
-        return this.term;
-    }
-
-    public Date getCreationDate() {
-        return this.creationDate;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return this.userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
+    public String getTerm() {
+        return this.term;
+    }
+
     public void setTerm(String term) {
         this.term = term;
+    }
+
+    public Date getCreationDate() {
+        return this.creationDate;
     }
 
     public void setCreationDate(Date creationDate) {
@@ -64,7 +64,7 @@ public class Search implements Entity {
         if (o == this) return true;
         if (!(o instanceof Search)) return false;
         final Search other = (Search) o;
-        if (!other.canEqual((Object) this)) return false;
+        if (!other.canEqual(this)) return false;
         final Object this$id = this.getId();
         final Object other$id = other.getId();
         if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;

@@ -42,28 +42,28 @@ public class Wish implements Entity {
         return this.id;
     }
 
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public String getBeerId() {
-        return this.beerId;
-    }
-
-    public Date getAddedAt() {
-        return this.addedAt;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return this.userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
+    public String getBeerId() {
+        return this.beerId;
+    }
+
     public void setBeerId(String beerId) {
         this.beerId = beerId;
+    }
+
+    public Date getAddedAt() {
+        return this.addedAt;
     }
 
     public void setAddedAt(Date addedAt) {
@@ -74,7 +74,7 @@ public class Wish implements Entity {
         if (o == this) return true;
         if (!(o instanceof Wish)) return false;
         final Wish other = (Wish) o;
-        if (!other.canEqual((Object) this)) return false;
+        if (!other.canEqual(this)) return false;
         final Object this$id = this.getId();
         final Object other$id = other.getId();
         if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;

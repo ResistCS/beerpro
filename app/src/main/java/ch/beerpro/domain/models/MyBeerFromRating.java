@@ -27,12 +27,12 @@ public class MyBeerFromRating implements MyBeer {
         return this.rating;
     }
 
-    public Beer getBeer() {
-        return this.beer;
-    }
-
     public void setRating(Rating rating) {
         this.rating = rating;
+    }
+
+    public Beer getBeer() {
+        return this.beer;
     }
 
     public void setBeer(Beer beer) {

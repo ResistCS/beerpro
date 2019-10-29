@@ -27,12 +27,12 @@ public class MyBeerFromWishlist implements MyBeer {
         return this.wish;
     }
 
-    public Beer getBeer() {
-        return this.beer;
-    }
-
     public void setWish(Wish wish) {
         this.wish = wish;
+    }
+
+    public Beer getBeer() {
+        return this.beer;
     }
 
     public void setBeer(Beer beer) {
@@ -43,7 +43,7 @@ public class MyBeerFromWishlist implements MyBeer {
         if (o == this) return true;
         if (!(o instanceof MyBeerFromWishlist)) return false;
         final MyBeerFromWishlist other = (MyBeerFromWishlist) o;
-        if (!other.canEqual((Object) this)) return false;
+        if (!other.canEqual(this)) return false;
         final Object this$wish = this.getWish();
         final Object other$wish = other.getWish();
         if (this$wish == null ? other$wish != null : !this$wish.equals(other$wish)) return false;

@@ -107,7 +107,7 @@ public class ProfileFragment extends Fragment {
     }
 
     @OnClick(R.id.myFridge)
-    public void handlyMyFridgeListener(View view){
+    public void handlyMyFridgeListener(View view) {
         Intent intent = new Intent(getActivity(), FridgeActivity.class);
         startActivity(intent);
     }
@@ -126,9 +126,9 @@ public class ProfileFragment extends Fragment {
         myWishlistCount.setText(String.valueOf(wishes.size()));
     }
 
-    private void updateMyFridgeCount(List<Count> counts){
+    private void updateMyFridgeCount(List<Count> counts) {
         int i = 0;
-        for (Count count: counts){
+        for (Count count : counts) {
             i += count.getAmount();
         }
         myFridgeCount.setText(String.valueOf(i));

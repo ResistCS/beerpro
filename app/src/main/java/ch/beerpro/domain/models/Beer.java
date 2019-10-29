@@ -36,20 +36,40 @@ public class Beer implements Entity, Serializable {
         return this.id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getManufacturer() {
         return this.manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public String getName() {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCategory() {
         return this.category;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getPhoto() {
         return this.photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public float getAvgRating() {
@@ -60,26 +80,6 @@ public class Beer implements Entity, Serializable {
         return this.numRatings;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     public void setNumRatings(int numRatings) {
         this.numRatings = numRatings;
     }
@@ -88,7 +88,7 @@ public class Beer implements Entity, Serializable {
         if (o == this) return true;
         if (!(o instanceof Beer)) return false;
         final Beer other = (Beer) o;
-        if (!other.canEqual((Object) this)) return false;
+        if (!other.canEqual(this)) return false;
         final Object this$id = this.getId();
         final Object other$id = other.getId();
         if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;

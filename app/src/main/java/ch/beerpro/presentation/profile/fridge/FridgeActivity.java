@@ -1,12 +1,5 @@
 package ch.beerpro.presentation.profile.fridge;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,10 +9,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,10 +25,9 @@ import butterknife.ButterKnife;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Count;
-import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.details.DetailsActivity;
 
-public class FridgeActivity extends AppCompatActivity implements OnMyFridgeInteractionListener{
+public class FridgeActivity extends AppCompatActivity implements OnMyFridgeInteractionListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -94,8 +91,8 @@ public class FridgeActivity extends AppCompatActivity implements OnMyFridgeInter
     }
 
     @Override
-    public void onIncreaseClickedListener(Beer beer, Count count){
-        TextView view = (TextView) findViewById(R.id.currentAmount);
+    public void onIncreaseClickedListener(Beer beer, Count count) {
+        TextView view = findViewById(R.id.currentAmount);
         int i = Integer.parseInt(view.getText().toString()) + 1;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String coundId = Count.generateId(count.getUserId(), count.getBeerId());
@@ -112,10 +109,10 @@ public class FridgeActivity extends AppCompatActivity implements OnMyFridgeInter
     }
 
     @Override
-    public void onDecreaseClickedListener(Beer beer, Count count){
-        TextView view = (TextView) findViewById(R.id.currentAmount);
+    public void onDecreaseClickedListener(Beer beer, Count count) {
+        TextView view = findViewById(R.id.currentAmount);
         int i = Integer.parseInt(view.getText().toString()) - 1;
-        if(i < 0){
+        if (i < 0) {
             i = 0;
         }
         int x = i;
@@ -134,7 +131,7 @@ public class FridgeActivity extends AppCompatActivity implements OnMyFridgeInter
     }
 
     @Override
-    public void onRemoveFromFridgeClickedListener(Beer beer, Count count){
+    public void onRemoveFromFridgeClickedListener(Beer beer, Count count) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String coundId = Count.generateId(count.getUserId(), count.getBeerId());
         DocumentReference wishEntryQuery = db.collection(Count.COLLECTION).document(coundId);
