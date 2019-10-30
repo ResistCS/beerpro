@@ -1,5 +1,6 @@
 package ch.beerpro.presentation.details.createrating;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -22,6 +23,8 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.yalantis.ucrop.UCrop;
@@ -45,6 +48,7 @@ public class CreateRatingActivity extends AppCompatActivity {
     public static final String ITEM = "item";
     public static final String RATING = "rating";
     private static final String TAG = "CreateRatingActivity";
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -63,11 +67,30 @@ public class CreateRatingActivity extends AppCompatActivity {
     @BindView(R.id.photoExplanation)
     TextView photoExplanation;
 
+    @BindView(R.id.clarityNumber)
+    EditText clarityNumber;
+
+    @BindView(R.id.bodyNumber)
+    EditText bodyNumber;
+
+    @BindView(R.id.sweetNumber)
+    EditText sweetNumber;
+
+    @BindView(R.id.bitterNumber)
+    EditText bitterNumber;
+
     private CreateRatingViewModel model;
+
+    private PlacesClient placesClient;
+
+    private String selectedPlaceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        placesClient = Places.createClient(this);
+
         setContentView(R.layout.activity_rating);
         ButterKnife.bind(this);
         Nammu.init(this);
@@ -84,19 +107,9 @@ public class CreateRatingActivity extends AppCompatActivity {
 
         addRatingBar.setRating(rating);
 
-        int permissionCheck =
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            Nammu.askForPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, new PermissionCallback() {
-                @Override
-                public void permissionGranted() {
-                }
-
-                @Override
-                public void permissionRefused() {
-                }
-            });
-        }
+        checkPermissionAndRequestThemIfNotAllowed(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        checkPermissionAndRequestThemIfNotAllowed(Manifest.permission.ACCESS_WIFI_STATE);
+        checkPermissionAndRequestThemIfNotAllowed(Manifest.permission.ACCESS_FINE_LOCATION);
 
         EasyImage.configuration(this).setImagesFolderName("BeerPro");
 
@@ -113,6 +126,34 @@ public class CreateRatingActivity extends AppCompatActivity {
         if (model.getPhoto() != null) {
             photo.setImageURI(model.getPhoto());
             photoExplanation.setText(null);
+        }
+
+//        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.mapsAutocomplete);
+//        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(Place place) {
+//                String placeId = place.getId();
+//            }
+//
+//            @Override
+//            public void onError(Status status) {
+//                Log.i(TAG, "An error occurred: " + status);
+//            }
+//        });
+    }
+
+    public void checkPermissionAndRequestThemIfNotAllowed(String permissionName) {
+        if (ContextCompat.checkSelfPermission(this, permissionName) != PackageManager.PERMISSION_GRANTED) {
+            Nammu.askForPermission(this, permissionName, new PermissionCallback() {
+                @Override
+                public void permissionGranted() {
+                }
+
+                @Override
+                public void permissionRefused() {
+                }
+            });
         }
     }
 
@@ -222,10 +263,34 @@ public class CreateRatingActivity extends AppCompatActivity {
     private void saveRating() {
         float rating = addRatingBar.getRating();
         String comment = ratingText.getText().toString();
+
+        // TODO make sure number input is between 1-10
+        Integer clarity = editableGetNumber(clarityNumber);
+        Integer body = editableGetNumber(bodyNumber);
+        Integer sweet = editableGetNumber(sweetNumber);
+        Integer bitter = editableGetNumber(bitterNumber);
+
         // TODO show a spinner!
         // TODO return the new rating to update the new average immediately
-        model.saveRating(model.getItem(), rating, comment, model.getPhoto())
+        model.saveRating(model.getItem(), rating, comment, selectedPlaceId, clarity, body, sweet, bitter, model.getPhoto())
                 .addOnSuccessListener(task -> onBackPressed())
                 .addOnFailureListener(error -> Log.e(TAG, "Could not save rating", error));
     }
+
+    private Integer editableGetNumber(EditText editable) {
+        String string = editable.getText().toString();
+
+        try {
+            Integer number = Integer.valueOf(string);
+
+            if (number >= 1 && number <= 10) {
+                return number;
+            }
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "Number field has illegal format", e);
+        }
+
+        return null;
+    }
+
 }

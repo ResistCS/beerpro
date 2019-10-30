@@ -6,6 +6,7 @@ import com.google.firebase.firestore.Exclude;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
 public class Rating implements Entity {
     public static final String COLLECTION = "ratings";
@@ -24,6 +25,11 @@ public class Rating implements Entity {
     private String photo;
     private float rating;
     private String comment;
+    private String placeId;
+    private Integer clarity;
+    private Integer body;
+    private Integer sweet;
+    private Integer bitter;
 
     /**
      * We use a Map instead of an Array to be able to query it.
@@ -33,7 +39,7 @@ public class Rating implements Entity {
     private Map<String, Boolean> likes;
     private Date creationDate;
 
-    public Rating(String id, String beerId, String beerName, String userId, String userName, String userPhoto, String photo, float rating, String comment, Map<String, Boolean> likes, Date creationDate) {
+    public Rating(String id, String beerId, String beerName, String userId, String userName, String userPhoto, String photo, float rating, String comment, String placeId, Integer clarity, Integer body, Integer sweet, Integer bitter, Map<String, Boolean> likes, Date creationDate) {
         this.id = id;
         this.beerId = beerId;
         this.beerName = beerName;
@@ -43,6 +49,11 @@ public class Rating implements Entity {
         this.photo = photo;
         this.rating = rating;
         this.comment = comment;
+        this.placeId = placeId;
+        this.clarity = clarity;
+        this.body = body;
+        this.sweet = sweet;
+        this.bitter = bitter;
         this.likes = likes;
         this.creationDate = creationDate;
     }
@@ -51,7 +62,7 @@ public class Rating implements Entity {
     }
 
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {
@@ -59,7 +70,7 @@ public class Rating implements Entity {
     }
 
     public String getBeerId() {
-        return this.beerId;
+        return beerId;
     }
 
     public void setBeerId(String beerId) {
@@ -67,7 +78,7 @@ public class Rating implements Entity {
     }
 
     public String getBeerName() {
-        return this.beerName;
+        return beerName;
     }
 
     public void setBeerName(String beerName) {
@@ -75,7 +86,7 @@ public class Rating implements Entity {
     }
 
     public String getUserId() {
-        return this.userId;
+        return userId;
     }
 
     public void setUserId(String userId) {
@@ -83,7 +94,7 @@ public class Rating implements Entity {
     }
 
     public String getUserName() {
-        return this.userName;
+        return userName;
     }
 
     public void setUserName(String userName) {
@@ -91,7 +102,7 @@ public class Rating implements Entity {
     }
 
     public String getUserPhoto() {
-        return this.userPhoto;
+        return userPhoto;
     }
 
     public void setUserPhoto(String userPhoto) {
@@ -99,7 +110,7 @@ public class Rating implements Entity {
     }
 
     public String getPhoto() {
-        return this.photo;
+        return photo;
     }
 
     public void setPhoto(String photo) {
@@ -107,7 +118,7 @@ public class Rating implements Entity {
     }
 
     public float getRating() {
-        return this.rating;
+        return rating;
     }
 
     public void setRating(float rating) {
@@ -115,15 +126,55 @@ public class Rating implements Entity {
     }
 
     public String getComment() {
-        return this.comment;
+        return comment;
     }
 
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
+    public Integer getClarity() {
+        return clarity;
+    }
+
+    public void setClarity(Integer clarity) {
+        this.clarity = clarity;
+    }
+
+    public Integer getBody() {
+        return body;
+    }
+
+    public void setBody(Integer body) {
+        this.body = body;
+    }
+
+    public Integer getSweet() {
+        return sweet;
+    }
+
+    public void setSweet(Integer sweet) {
+        this.sweet = sweet;
+    }
+
+    public Integer getBitter() {
+        return bitter;
+    }
+
+    public void setBitter(Integer bitter) {
+        this.bitter = bitter;
+    }
+
     public Map<String, Boolean> getLikes() {
-        return this.likes;
+        return likes;
     }
 
     public void setLikes(Map<String, Boolean> likes) {
@@ -131,92 +182,64 @@ public class Rating implements Entity {
     }
 
     public Date getCreationDate() {
-        return this.creationDate;
+        return creationDate;
     }
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public boolean equals(final Object o) {
-        if (o == this) return true;
-        if (!(o instanceof Rating)) return false;
-        final Rating other = (Rating) o;
-        if (!other.canEqual(this)) return false;
-        final Object this$id = this.getId();
-        final Object other$id = other.getId();
-        if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;
-        final Object this$beerId = this.getBeerId();
-        final Object other$beerId = other.getBeerId();
-        if (this$beerId == null ? other$beerId != null : !this$beerId.equals(other$beerId))
-            return false;
-        final Object this$beerName = this.getBeerName();
-        final Object other$beerName = other.getBeerName();
-        if (this$beerName == null ? other$beerName != null : !this$beerName.equals(other$beerName))
-            return false;
-        final Object this$userId = this.getUserId();
-        final Object other$userId = other.getUserId();
-        if (this$userId == null ? other$userId != null : !this$userId.equals(other$userId))
-            return false;
-        final Object this$userName = this.getUserName();
-        final Object other$userName = other.getUserName();
-        if (this$userName == null ? other$userName != null : !this$userName.equals(other$userName))
-            return false;
-        final Object this$userPhoto = this.getUserPhoto();
-        final Object other$userPhoto = other.getUserPhoto();
-        if (this$userPhoto == null ? other$userPhoto != null : !this$userPhoto.equals(other$userPhoto))
-            return false;
-        final Object this$photo = this.getPhoto();
-        final Object other$photo = other.getPhoto();
-        if (this$photo == null ? other$photo != null : !this$photo.equals(other$photo))
-            return false;
-        if (Float.compare(this.getRating(), other.getRating()) != 0) return false;
-        final Object this$comment = this.getComment();
-        final Object other$comment = other.getComment();
-        if (this$comment == null ? other$comment != null : !this$comment.equals(other$comment))
-            return false;
-        final Object this$likes = this.getLikes();
-        final Object other$likes = other.getLikes();
-        if (this$likes == null ? other$likes != null : !this$likes.equals(other$likes))
-            return false;
-        final Object this$creationDate = this.getCreationDate();
-        final Object other$creationDate = other.getCreationDate();
-        return this$creationDate == null ? other$creationDate == null : this$creationDate.equals(other$creationDate);
-    }
-
     private boolean canEqual(final Object other) {
         return other instanceof Rating;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rating rating1 = (Rating) o;
+        return Float.compare(rating1.getRating(), getRating()) == 0 &&
+                getClarity() == rating1.getClarity() &&
+                getBody() == rating1.getBody() &&
+                getSweet() == rating1.getSweet() &&
+                getBitter() == rating1.getBitter() &&
+                Objects.equals(getId(), rating1.getId()) &&
+                Objects.equals(getBeerId(), rating1.getBeerId()) &&
+                Objects.equals(getBeerName(), rating1.getBeerName()) &&
+                Objects.equals(getUserId(), rating1.getUserId()) &&
+                Objects.equals(getUserName(), rating1.getUserName()) &&
+                Objects.equals(getUserPhoto(), rating1.getUserPhoto()) &&
+                Objects.equals(getPhoto(), rating1.getPhoto()) &&
+                Objects.equals(getComment(), rating1.getComment()) &&
+                Objects.equals(getPlaceId(), rating1.getPlaceId()) &&
+                Objects.equals(getLikes(), rating1.getLikes()) &&
+                Objects.equals(getCreationDate(), rating1.getCreationDate());
+    }
+
+    @Override
     public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        final Object $id = this.getId();
-        result = result * PRIME + ($id == null ? 43 : $id.hashCode());
-        final Object $beerId = this.getBeerId();
-        result = result * PRIME + ($beerId == null ? 43 : $beerId.hashCode());
-        final Object $beerName = this.getBeerName();
-        result = result * PRIME + ($beerName == null ? 43 : $beerName.hashCode());
-        final Object $userId = this.getUserId();
-        result = result * PRIME + ($userId == null ? 43 : $userId.hashCode());
-        final Object $userName = this.getUserName();
-        result = result * PRIME + ($userName == null ? 43 : $userName.hashCode());
-        final Object $userPhoto = this.getUserPhoto();
-        result = result * PRIME + ($userPhoto == null ? 43 : $userPhoto.hashCode());
-        final Object $photo = this.getPhoto();
-        result = result * PRIME + ($photo == null ? 43 : $photo.hashCode());
-        result = result * PRIME + Float.floatToIntBits(this.getRating());
-        final Object $comment = this.getComment();
-        result = result * PRIME + ($comment == null ? 43 : $comment.hashCode());
-        final Object $likes = this.getLikes();
-        result = result * PRIME + ($likes == null ? 43 : $likes.hashCode());
-        final Object $creationDate = this.getCreationDate();
-        result = result * PRIME + ($creationDate == null ? 43 : $creationDate.hashCode());
-        return result;
+        return Objects.hash(getId(), getBeerId(), getBeerName(), getUserId(), getUserName(), getUserPhoto(), getPhoto(), getRating(), getComment(), getPlaceId(), getClarity(), getBody(), getSweet(), getBitter(), getLikes(), getCreationDate());
     }
 
     @NonNull
     public String toString() {
-        return "Rating(id=" + this.getId() + ", beerId=" + this.getBeerId() + ", beerName=" + this.getBeerName() + ", userId=" + this.getUserId() + ", userName=" + this.getUserName() + ", userPhoto=" + this.getUserPhoto() + ", photo=" + this.getPhoto() + ", rating=" + this.getRating() + ", comment=" + this.getComment() + ", likes=" + this.getLikes() + ", creationDate=" + this.getCreationDate() + ")";
+        return "Rating{" +
+                "id='" + id + '\'' +
+                ", beerId='" + beerId + '\'' +
+                ", beerName='" + beerName + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userPhoto='" + userPhoto + '\'' +
+                ", photo='" + photo + '\'' +
+                ", rating=" + rating +
+                ", comment='" + comment + '\'' +
+                ", placeId='" + placeId + '\'' +
+                ", clarity=" + clarity +
+                ", body=" + body +
+                ", sweet=" + sweet +
+                ", bitter=" + bitter +
+                ", likes=" + likes +
+                ", creationDate=" + creationDate +
+                '}';
     }
 }

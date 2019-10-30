@@ -4,6 +4,9 @@
     package="ch.beerpro">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:name=".MyApplication"
@@ -14,7 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presentation.profile.fridge.FridgeActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAiu5RckuTkwKfWhi5r-6N0FRkEzz53zHo" />
+
+        <activity android:name=".presentation.profile.fridge.FridgeActivity" />
+
         <activity
             android:name=".presentation.splash.SplashScreenActivity"
             android:theme="@style/LoginScreenTheme">
@@ -24,11 +33,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".presentation.MainActivity"
             android:label="@string/title_activity_home_screen"
             android:theme="@style/AppTheme" />
+
         <activity android:name=".presentation.explore.search.SearchActivity" />
+
         <activity
             android:name=".presentation.details.DetailsActivity"
             android:label="@string/title_activity_single_beer"
@@ -44,11 +56,12 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
                     android:host="beerpro.ch"
-                    android:pathPrefix="/beer" />
+                    android:pathPrefix="/beer"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".presentation.details.createrating.CreateRatingActivity"
             android:parentActivityName=".presentation.details.DetailsActivity"
@@ -57,10 +70,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.details.DetailsActivity" />
         </activity>
+
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".presentation.profile.mywishlist.WishlistActivity"
             android:label="@string/title_activity_wishlist"
@@ -70,6 +85,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.MainActivity" />
         </activity>
+
         <activity
             android:name=".presentation.profile.myratings.MyRatingsActivity"
             android:label="@string/title_activity_myratings"
@@ -79,6 +95,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.MainActivity" />
         </activity>
+
         <activity
             android:name=".presentation.profile.mybeers.MyBeersActivity"
             android:label="@string/title_activity_mybeers"

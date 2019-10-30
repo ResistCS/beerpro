@@ -8,7 +8,6 @@
     tools:context=".presentation.details.DetailsActivity">
 
 
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
@@ -230,9 +229,9 @@
                                 android:layout_weight="1"
                                 android:drawableTop="@drawable/ic_bookmark_brown_24dp"
                                 android:drawableTint="@android:color/darker_gray"
+                                android:textColor="@android:color/darker_gray"
                                 android:textOff="Wunschliste"
                                 android:textOn="Wunschliste"
-                                android:textColor="@android:color/darker_gray"
                                 android:textSize="10sp" />
 
                             <View
@@ -307,7 +306,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="24dp"/>
+            android:layout_height="24dp" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
