@@ -63,6 +63,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
+    implementation 'com.google.android.libraries.places:places:2.0.0'
+
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
 
     testImplementation 'junit:junit:4.12'

@@ -10,8 +10,10 @@
         <item name="android:windowActivityTransitions">true</item>
 
         <!-- specify shared element transitions -->
-        <item name="android:windowSharedElementEnterTransition">@transition/change_view_transform</item>
-        <item name="android:windowSharedElementExitTransition">@transition/change_view_transform</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/change_view_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">@transition/change_view_transform
+        </item>
     </style>
 
 
