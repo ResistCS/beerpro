@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -23,7 +24,11 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +40,7 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
@@ -79,11 +85,14 @@ public class CreateRatingActivity extends AppCompatActivity {
     @BindView(R.id.bitterNumber)
     EditText bitterNumber;
 
+    @BindView(R.id.searchPlaceText)
+    EditText searchPlaceText;
+
     private CreateRatingViewModel model;
 
     private PlacesClient placesClient;
 
-    private String selectedPlaceId;
+    private String selectedaddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,20 +136,22 @@ public class CreateRatingActivity extends AppCompatActivity {
             photo.setImageURI(model.getPhoto());
             photoExplanation.setText(null);
         }
+    }
 
-//        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.mapsAutocomplete);
-//        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-//            @Override
-//            public void onPlaceSelected(Place place) {
-//                String placeId = place.getId();
-//            }
-//
-//            @Override
-//            public void onError(Status status) {
-//                Log.i(TAG, "An error occurred: " + status);
-//            }
-//        });
+    @OnClick(R.id.searchPlaceButton)
+    private void onSearchPlaceOnClickedListener(View view) {
+        FindAutocompletePredictionsRequest.Builder requestBuilder =
+                FindAutocompletePredictionsRequest.builder()
+                        .setQuery(searchPlaceText.getText().toString())
+                        .setTypeFilter(TypeFilter.ADDRESS);
+
+        Task<FindAutocompletePredictionsResponse> task =
+                placesClient.findAutocompletePredictions(requestBuilder.build());
+
+        task.addOnSuccessListener((response) -> {
+            System.out.println(response.toString()); // TODO figure out how to get address
+//            searchPlaceText.setText(response)
+        });
     }
 
     public void checkPermissionAndRequestThemIfNotAllowed(String permissionName) {
@@ -272,7 +283,7 @@ public class CreateRatingActivity extends AppCompatActivity {
 
         // TODO show a spinner!
         // TODO return the new rating to update the new average immediately
-        model.saveRating(model.getItem(), rating, comment, selectedPlaceId, clarity, body, sweet, bitter, model.getPhoto())
+        model.saveRating(model.getItem(), rating, comment, selectedaddress, clarity, body, sweet, bitter, model.getPhoto())
                 .addOnSuccessListener(task -> onBackPressed())
                 .addOnFailureListener(error -> Log.e(TAG, "Could not save rating", error));
     }
