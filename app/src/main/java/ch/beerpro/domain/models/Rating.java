@@ -25,7 +25,7 @@ public class Rating implements Entity {
     private String photo;
     private float rating;
     private String comment;
-    private String placeId;
+    private String address;
     private Integer clarity;
     private Integer body;
     private Integer sweet;
@@ -39,7 +39,7 @@ public class Rating implements Entity {
     private Map<String, Boolean> likes;
     private Date creationDate;
 
-    public Rating(String id, String beerId, String beerName, String userId, String userName, String userPhoto, String photo, float rating, String comment, String placeId, Integer clarity, Integer body, Integer sweet, Integer bitter, Map<String, Boolean> likes, Date creationDate) {
+    public Rating(String id, String beerId, String beerName, String userId, String userName, String userPhoto, String photo, float rating, String comment, String address, Integer clarity, Integer body, Integer sweet, Integer bitter, Map<String, Boolean> likes, Date creationDate) {
         this.id = id;
         this.beerId = beerId;
         this.beerName = beerName;
@@ -49,7 +49,7 @@ public class Rating implements Entity {
         this.photo = photo;
         this.rating = rating;
         this.comment = comment;
-        this.placeId = placeId;
+        this.address = address;
         this.clarity = clarity;
         this.body = body;
         this.sweet = sweet;
@@ -133,12 +133,12 @@ public class Rating implements Entity {
         this.comment = comment;
     }
 
-    public String getPlaceId() {
-        return placeId;
+    public String getaddress() {
+        return address;
     }
 
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
+    public void setaddress(String address) {
+        this.address = address;
     }
 
     public Integer getClarity() {
@@ -211,14 +211,14 @@ public class Rating implements Entity {
                 Objects.equals(getUserPhoto(), rating1.getUserPhoto()) &&
                 Objects.equals(getPhoto(), rating1.getPhoto()) &&
                 Objects.equals(getComment(), rating1.getComment()) &&
-                Objects.equals(getPlaceId(), rating1.getPlaceId()) &&
+                Objects.equals(getaddress(), rating1.getaddress()) &&
                 Objects.equals(getLikes(), rating1.getLikes()) &&
                 Objects.equals(getCreationDate(), rating1.getCreationDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getBeerId(), getBeerName(), getUserId(), getUserName(), getUserPhoto(), getPhoto(), getRating(), getComment(), getPlaceId(), getClarity(), getBody(), getSweet(), getBitter(), getLikes(), getCreationDate());
+        return Objects.hash(getId(), getBeerId(), getBeerName(), getUserId(), getUserName(), getUserPhoto(), getPhoto(), getRating(), getComment(), getaddress(), getClarity(), getBody(), getSweet(), getBitter(), getLikes(), getCreationDate());
     }
 
     @NonNull
@@ -233,7 +233,7 @@ public class Rating implements Entity {
                 ", photo='" + photo + '\'' +
                 ", rating=" + rating +
                 ", comment='" + comment + '\'' +
-                ", placeId='" + placeId + '\'' +
+                ", address='" + address + '\'' +
                 ", clarity=" + clarity +
                 ", body=" + body +
                 ", sweet=" + sweet +

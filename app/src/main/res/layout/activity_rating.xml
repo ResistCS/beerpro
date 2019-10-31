@@ -288,79 +288,37 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bitterNumber" />
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/textView6"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="@dimen/default_margin"-->
-            <!--                android:layout_marginTop="8dp"-->
-            <!--                android:text="Wo hast du dieses Bier getrunken?"-->
-            <!--                android:textAppearance="?attr/textAppearanceListItem"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/separator5" />-->
-
-            <!--            <AutocompleteSupportFragment-->
-            <!--                android:id="@+id/mapsAutocomplete"-->
-            <!--                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="8dp"-->
-            <!--                android:layout_marginEnd="8dp"-->
-            <!--                android:paddingBottom="8dp"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintHorizontal_bias="1.0"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/textView6" />-->
-
-            <!--            <View-->
-            <!--                android:id="@+id/separator6"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="1dp"-->
-            <!--                android:background="#ffeeeeee"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/mapsAutocomplete" />-->
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="8dp"
+                android:text="Ort hinzufügen"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/separator9" />
+
+            <EditText
+                android:id="@+id/searchPlaceText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="top"
+                android:inputType="text|textAutoCorrect|textAutoComplete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/separator9">
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-                <Button
-                    android:id="@+id/button"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_more_horiz_black_24dp"
-                    android:drawableTint="@android:color/darker_gray"
-                    android:text="Ort Hinzufügen"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="10sp" />
-
-                <!--
-                                <View
-                                    android:layout_width="1dp"
-                                    android:layout_height="match_parent"
-                                    android:background="#ffeeeeee" />
-
-                                <Button
-                                    android:id="@+id/button3"
-                                    style="?android:attr/borderlessButtonStyle"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:drawableTop="@drawable/ic_bookmark_brown_24dp"
-                                    android:drawableTint="@android:color/darker_gray"
-                                    android:text="Wunschliste"
-                                    android:textColor="@android:color/darker_gray"
-                                    android:textSize="10sp" />
-                -->
-            </LinearLayout>
-
+            <Button
+                android:id="@+id/searchPlaceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchPlaceText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
