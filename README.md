@@ -1,3 +1,9 @@
+## Implemented features
+
+* Fridge (4pts)
+* Sharing with Deeplink (3pts)
+* Rating with addtional information (5pts) 
+
 ## Useful Links
 
 ### Firestore
