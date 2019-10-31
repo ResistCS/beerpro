@@ -76,6 +76,18 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Rating, RatingsRecyc
         @BindView(R.id.photo)
         ImageView photo;
 
+        @BindView(R.id.truebheit)
+        TextView trueb;
+
+        @BindView(R.id.body)
+        TextView body;
+
+        @BindView(R.id.sweetness)
+        TextView sweet;
+
+        @BindView(R.id.bitterkeit)
+        TextView bitter;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, itemView);
@@ -83,6 +95,10 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Rating, RatingsRecyc
 
         void bind(Rating item, OnRatingLikedListener listener) {
             comment.setText(item.getComment());
+            trueb.setText("Trüebheit: " + item.getClarity());
+            body.setText("Körper: " + item.getBody());
+            sweet.setText("Süssheit: " + item.getSweet());
+            bitter.setText("Bitterkeit: " + item.getBitter());
 
             ratingBar.setNumStars(5);
             ratingBar.setRating(item.getRating());
